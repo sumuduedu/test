@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div>
+    <h1 class="h3">Course Dashboard</h1>
+    <p class="text-muted">Manage courses, generate weekly timetables, and export lesson plans.</p>
+  </div>
+  <a class="btn btn-outline-primary" href="{{ url_for('init_db_route') }}">Load Sample Data</a>
+</div>
+
+<div class="row g-3">
+  {% for course in courses %}
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">{{ course['name'] }}</h5>
+        <p class="card-text text-muted">{{ course['duration_months'] }} months · {{ course['days_per_week'] }} days/week · {{ course['hours_per_day'] }} hours/day</p>
+        <a class="btn btn-primary" href="{{ url_for('course_detail', course_id=course['id']) }}">View Plan</a>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="col-12">
+    <div class="alert alert-warning">No courses yet. Create one to get started.</div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

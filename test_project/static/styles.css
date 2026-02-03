@@ -1,0 +1,13 @@
+body {
+  background-color: #f8f9fb;
+}
+
+.card .display-6 {
+  font-weight: 600;
+}
+
+.table-responsive {
+  background: #fff;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
