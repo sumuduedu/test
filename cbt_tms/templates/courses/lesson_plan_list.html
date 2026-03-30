@@ -1,0 +1,2 @@
+{% extends 'base.html' %}
+{% block content %}<h2>Lesson Plans</h2><a class='btn btn-primary btn-sm' href='/courses/lesson-plans/create/'>Add</a><ul>{% for l in lesson_plans %}<li>{{l.title}} ({{l.module}})</li>{% endfor %}</ul>{% endblock %}

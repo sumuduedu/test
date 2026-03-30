@@ -1,0 +1,2 @@
+{% extends 'base.html' %}
+{% block content %}<h2>Student Progress (Attendance)</h2><table class='table'><tr><th>Student</th><th>Batch</th><th>Attendance %</th></tr>{% for e in enrollments %}<tr><td>{{e.student}}</td><td>{{e.batch}}</td><td>{{e.attendance_percentage}}</td></tr>{% endfor %}</table>{% endblock %}

@@ -1,0 +1,2 @@
+{% extends 'base.html' %}
+{% block content %}<h2>{{ resource_type|default:'Learning Resources' }}</h2><a class='btn btn-primary btn-sm' href='/learning/resources/create/'>Add</a><ul>{% for r in resources %}<li>{{r}}</li>{% endfor %}</ul>{% endblock %}

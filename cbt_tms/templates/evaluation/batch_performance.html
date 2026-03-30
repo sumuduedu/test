@@ -1,0 +1,2 @@
+{% extends 'base.html' %}
+{% block content %}<h2>Batch Performance Analytics</h2><table class='table'><tr><th>Batch</th><th>Attendance %</th><th>Assignment Completion %</th><th>Assessment Avg</th></tr>{% for p in performance %}<tr><td>{{p.batch}}</td><td>{{p.attendance_rate}}</td><td>{{p.assignment_completion_rate}}</td><td>{{p.avg_assessment_score}}</td></tr>{% endfor %}</table>{% endblock %}
