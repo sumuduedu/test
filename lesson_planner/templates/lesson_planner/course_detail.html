@@ -1,0 +1,22 @@
+{% extends 'lesson_planner/base.html' %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">{{ object.title }} ({{ object.code }})</h1>
+<p class="mb-4">{{ object.description }}</p>
+<a href="{% url 'course_builder' 1 object.pk %}" class="bg-green-600 text-white px-3 py-2 rounded">Course Builder</a>
+<h2 class="text-xl font-semibold mt-6">Hierarchy</h2>
+{% for module in object.modules.all %}
+<div class="bg-white p-4 rounded shadow mt-3">
+  <h3 class="font-semibold">Module {{ module.code }}: {{ module.title }} ({{ module.duration_hours }}h)</h3>
+  {% for task in module.tasks.all %}
+    <div class="ml-4 mt-2">
+      <p class="font-medium">Task: {{ task.title }} ({{ task.hours }}h)</p>
+      <ul class="list-disc ml-6">
+      {% for lp in task.lesson_plans.all %}
+        <li>{{ lp.title }} - <a class="text-indigo-700" href="{% url 'lessonplan_builder' lp.pk %}">Builder</a> | <a class="text-indigo-700" href="{% url 'lessonplan_pdf' lp.pk %}">PDF</a></li>
+      {% endfor %}
+      </ul>
+    </div>
+  {% endfor %}
+</div>
+{% endfor %}
+{% endblock %}

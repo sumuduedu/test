@@ -1,0 +1,5 @@
+{% extends 'lesson_planner/base.html' %}
+{% block content %}
+<div class="flex justify-between mb-4"><h1 class="text-2xl font-bold">Courses</h1><a class="bg-indigo-600 text-white px-3 py-2 rounded" href="{% url 'course_create' %}">Add Course</a></div>
+<div class="space-y-3">{% for course in object_list %}<div class="bg-white p-4 rounded shadow"><a class="font-semibold" href="{% url 'course_detail' course.pk %}">{{ course }}</a><p>NVQ {{ course.nvq_level }} · {{ course.module_hours }}/{{ course.total_hours }} module hrs</p></div>{% empty %}<p>No courses found.</p>{% endfor %}</div>
+{% endblock %}
