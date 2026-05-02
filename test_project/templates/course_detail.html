@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-4">
+  <div>
+    <h1 class="h3">{{ course['name'] }}</h1>
+    <p class="text-muted mb-1">Duration: {{ course['duration_months'] }} months · {{ weeks }} weeks</p>
+    <p class="text-muted">{{ course['days_per_week'] }} days/week · {{ course['hours_per_day'] }} hours/day</p>
+  </div>
+  <div>
+    <a class="btn btn-outline-primary" href="{{ url_for('export_lesson_plan', course_id=course['id']) }}">Export PDF</a>
+  </div>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h6 class="card-title text-uppercase text-muted">Total Hours</h6>
+        <p class="display-6">{{ total_hours }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h6 class="card-title text-uppercase text-muted">Theory Hours</h6>
+        <p class="display-6">{{ theory_hours }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h6 class="card-title text-uppercase text-muted">Practical Hours</h6>
+        <p class="display-6">{{ practical_hours }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2 class="h5">Modules</h2>
+<div class="table-responsive mb-4">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Module</th>
+        <th>Description</th>
+        <th>Theory Hours</th>
+        <th>Practical Hours</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for module in modules %}
+      <tr>
+        <td>{{ module['title'] }}</td>
+        <td>{{ module['description'] }}</td>
+        <td>{{ module['theory_hours'] }}</td>
+        <td>{{ module['practical_hours'] }}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="4" class="text-muted">No modules defined yet.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<h2 class="h5">Weekly Timetable & Lesson Plan</h2>
+<div class="table-responsive">
+  <table class="table table-bordered align-middle">
+    <thead class="table-light">
+      <tr>
+        <th>Week</th>
+        <th>Day</th>
+        <th>Topic</th>
+        <th>Theory Hours</th>
+        <th>Practical Hours</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for lesson in lessons %}
+      <tr>
+        <td>{{ lesson['week_number'] }}</td>
+        <td>{{ lesson['day_of_week'] }}</td>
+        <td>{{ lesson['topic'] }}</td>
+        <td>{{ lesson['theory_hours'] }}</td>
+        <td>{{ lesson['practical_hours'] }}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="5" class="text-muted">No lesson plan generated yet.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
