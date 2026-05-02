@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MIT Computer Training Center - QR Attendance</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js" defer></script>
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">MIT Computer Training Center</p>
+      <h1>NVQ Courses QR Attendance System</h1>
+      <p class="subtitle">Create a session QR code, scan it in, and track attendance with cookie-aware popups.</p>
+    </div>
+    <button class="primary" id="open-attendee">Register / Update Profile</button>
+  </header>
+
+  <main class="grid">
+    <section class="card">
+      <h2>Session QR Generator (Trainer)</h2>
+      <label class="field">
+        Session Name
+        <input type="text" id="session-name" placeholder="NVQ Level 4 - Web Development" />
+      </label>
+      <label class="field">
+        Trainer Name
+        <input type="text" id="trainer-name" placeholder="Trainer name" />
+      </label>
+      <label class="field">
+        Room / Lab
+        <input type="text" id="session-room" placeholder="Lab 2" />
+      </label>
+      <button class="primary" id="generate-qr">Generate QR</button>
+      <div class="qr-wrap">
+        <canvas id="qr-canvas" aria-label="Generated QR code"></canvas>
+        <div id="qr-meta" class="meta"></div>
+      </div>
+      <label class="field">
+        Session Code (share manually if camera access fails)
+        <textarea id="session-code" rows="4" readonly></textarea>
+      </label>
+      <button class="secondary" id="copy-session">Copy Session Code</button>
+      <div id="qr-status" class="status"></div>
+    </section>
+
+    <section class="card">
+      <h2>Scan QR (Trainee)</h2>
+      <p class="hint">Use the camera to scan the session QR. Your attendance will be recorded instantly.</p>
+      <div id="scanner" class="scanner"></div>
+      <div class="inline-actions">
+        <button class="ghost" id="start-scan">Start Scanner</button>
+        <button class="ghost" id="stop-scan">Stop Scanner</button>
+      </div>
+      <div id="scan-status" class="status">Scanner idle.</div>
+      <label class="field">
+        Manual Session Code
+        <input type="text" id="manual-code" placeholder="Paste or type the code" />
+      </label>
+      <button class="secondary" id="submit-manual">Submit Manual Attendance</button>
+    </section>
+
+    <section class="card full">
+      <div class="attendance-header">
+        <div>
+          <h2>Attendance Log</h2>
+          <p class="hint">Saved in your browser (cookie + local storage). Export anytime.</p>
+        </div>
+        <div class="inline-actions">
+          <button class="ghost" id="clear-log">Clear Log</button>
+          <button class="primary" id="export-log">Export CSV</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date & Time</th>
+              <th>Session</th>
+              <th>Trainer</th>
+              <th>Room</th>
+              <th>Trainee</th>
+              <th>Course</th>
+              <th>NIC / Student ID</th>
+            </tr>
+          </thead>
+          <tbody id="attendance-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal" id="attendee-modal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Trainee Profile</h3>
+        <button class="ghost" id="close-attendee">Close</button>
+      </div>
+      <p class="hint">We store this in a cookie so you only enter it once per device.</p>
+      <label class="field">
+        Full Name
+        <input type="text" id="trainee-name" placeholder="e.g. Tharindu Perera" />
+      </label>
+      <label class="field">
+        NVQ Course
+        <input type="text" id="trainee-course" placeholder="NVQ Level 4 - ICT" />
+      </label>
+      <label class="field">
+        NIC / Student ID
+        <input type="text" id="trainee-id" placeholder="NIC or student number" />
+      </label>
+      <button class="primary" id="save-attendee">Save Profile</button>
+      <div class="status" id="profile-status"></div>
+    </div>
+  </div>
+</body>
+</html>
