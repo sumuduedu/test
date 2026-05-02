@@ -1,0 +1,2 @@
+{% extends 'base.html' %}
+{% block content %}<h2>Certificates</h2><a class='btn btn-primary btn-sm' href='/certification/create/'>Generate</a><ul>{% for c in certificates %}<li>{{c.certificate_no}} - {{c.enrollment.student}} - Eligible: {{c.is_eligible}}</li>{% endfor %}</ul>{% endblock %}

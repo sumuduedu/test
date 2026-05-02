@@ -1,0 +1,2 @@
+{% extends 'base.html' %}
+{% block content %}<h2>Competency Results</h2><a class='btn btn-primary btn-sm' href='/assessment/competency/create/'>Generate</a><table class='table'><tr><th>Student</th><th>Score</th><th>Status</th></tr>{% for r in results %}<tr><td>{{r.enrollment.student}}</td><td>{{r.final_score}}</td><td>{{r.get_status_display}}</td></tr>{% endfor %}</table>{% endblock %}

@@ -1,0 +1,2 @@
+{% extends 'base.html' %}
+{% block content %}<h2>Assignments</h2><p>Completion Rate: <strong>{{ completion_rate }}%</strong></p><a class='btn btn-primary btn-sm' href='/learning/assignments/create/'>Add</a><ul>{% for a in assignments %}<li>{{a.title}} - {{a.enrollment.student}} - Submitted: {{a.submitted}}</li>{% endfor %}</ul>{% endblock %}

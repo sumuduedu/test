@@ -1,0 +1,2 @@
+{% extends 'base.html' %}
+{% block content %}<h2>Batches</h2><a class='btn btn-primary btn-sm' href='/batches/create/'>Create Batch</a><table class='table'><tr><th>Name</th><th>Course</th><th>Trainer</th></tr>{% for b in batches %}<tr><td>{{b.name}}</td><td>{{b.course}}</td><td>{{b.trainer}}</td></tr>{% endfor %}</table>{% endblock %}

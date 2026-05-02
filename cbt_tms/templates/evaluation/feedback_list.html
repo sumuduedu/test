@@ -1,0 +1,2 @@
+{% extends 'base.html' %}
+{% block content %}<h2>Feedback</h2><a class='btn btn-primary btn-sm' href='/evaluation/feedback/create/'>Submit Feedback</a><ul>{% for f in feedback_items %}<li>{{f.enrollment.student}}: {{f.reaction_score}}/100</li>{% endfor %}</ul>{% endblock %}

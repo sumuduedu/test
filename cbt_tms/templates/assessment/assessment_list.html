@@ -1,0 +1,2 @@
+{% extends 'base.html' %}
+{% block content %}<h2>Assessments</h2><a class='btn btn-primary btn-sm' href='/assessment/create/'>Create</a><ul>{% for a in assessments %}<li>{{a.enrollment.student}} | {{a.session}} | {{a.assessor}}</li>{% endfor %}</ul>{% endblock %}

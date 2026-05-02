@@ -1,0 +1,2 @@
+{% extends 'base.html' %}
+{% block content %}<h2>Sessions</h2><a class='btn btn-primary btn-sm' href='/batches/session/create/'>Create Session</a><ul>{% for s in sessions %}<li>{{s.batch}} - {{s.lesson_plan}} - {{s.date}}</li>{% endfor %}</ul>{% endblock %}
