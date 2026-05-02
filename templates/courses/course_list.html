@@ -1,0 +1,4 @@
+{% extends 'base.html' %}{% block content %}<h1 class='text-2xl font-bold mb-4'>Courses</h1>
+<div class='grid md:grid-cols-2 gap-4'>{% for course in object_list %}
+<div class='bg-white p-4 rounded shadow'><h3 class='font-semibold'>{{ course.title }}</h3><p>{{ course.description|truncatewords:20 }}</p></div>
+{% empty %}<p>No courses published.</p>{% endfor %}</div>{% endblock %}
