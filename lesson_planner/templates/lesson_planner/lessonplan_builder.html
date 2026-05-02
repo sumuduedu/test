@@ -1,0 +1,11 @@
+{% extends 'lesson_planner/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1 class="text-xl font-bold mb-4">Lesson Plan Builder</h1>
+<form method="post" enctype="multipart/form-data" class="space-y-6">{% csrf_token %}
+<div class="bg-white p-4 rounded shadow">{{ form|crispy }}</div>
+<div class="bg-white p-4 rounded shadow dynamic-formset" data-prefix="activities">{{ activity_formset.management_form }}{% for form in activity_formset %}<div class="form-row border p-2 mb-2">{{ form|crispy }}</div>{% endfor %}<button type="button" class="add-row bg-gray-200 px-2 py-1">Add Activity</button></div>
+<div class="bg-white p-4 rounded shadow dynamic-formset" data-prefix="resources">{{ resource_formset.management_form }}{% for form in resource_formset %}<div class="form-row border p-2 mb-2">{{ form|crispy }}</div>{% endfor %}<button type="button" class="add-row bg-gray-200 px-2 py-1">Add Resource</button></div>
+<button class="bg-indigo-600 text-white px-3 py-2 rounded">Save Builder</button>
+</form>
+{% endblock %}

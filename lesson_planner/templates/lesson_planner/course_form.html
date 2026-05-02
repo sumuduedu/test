@@ -1,0 +1,6 @@
+{% extends 'lesson_planner/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1 class="text-xl font-bold mb-4">Course Form</h1>
+<form method="post" class="bg-white p-4 rounded shadow">{% csrf_token %}{{ form|crispy }}<button class="mt-3 bg-indigo-600 text-white px-3 py-2 rounded">Save</button></form>
+{% endblock %}

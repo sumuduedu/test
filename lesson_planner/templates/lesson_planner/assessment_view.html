@@ -1,0 +1,7 @@
+{% extends 'lesson_planner/base.html' %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Assessments</h1>
+{% for assessment in assessments %}
+<div class="bg-white p-4 rounded shadow mb-2"><p class="font-semibold">{{ assessment.type }}</p><p>{{ assessment.description }}</p><p class="text-sm">Criteria: {{ assessment.criteria }}</p></div>
+{% endfor %}
+{% endblock %}
