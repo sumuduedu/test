@@ -1,59 +1,38 @@
+from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import login
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
-from django.views.generic import TemplateView, UpdateView, CreateView
-
-from .forms import EmailAuthenticationForm, ProfileUpdateForm, StudentParentRegistrationForm
+from django.views.generic import FormView
+from .forms import EmailAuthenticationForm, ParentRegistrationForm, StudentRegistrationForm
 
 
-class RoleDashboardView(LoginRequiredMixin, TemplateView):
-    template_name = 'accounts/dashboard.html'
-
-
-class SecureLoginView(LoginView):
-    authentication_form = EmailAuthenticationForm
+class UserLoginView(LoginView):
     template_name = 'accounts/login.html'
-    redirect_authenticated_user = True
+    authentication_form = EmailAuthenticationForm
 
 
-class SecureLogoutView(LogoutView):
-    next_page = reverse_lazy('accounts:login')
+class UserLogoutView(LogoutView):
+    pass
 
 
-class RegisterView(CreateView):
-    form_class = StudentParentRegistrationForm
+class StudentRegisterView(FormView):
+    form_class = StudentRegistrationForm
     template_name = 'accounts/register.html'
-    success_url = reverse_lazy('accounts:activation-sent')
 
     def form_valid(self, form):
-        response = super().form_valid(form)
-        messages.success(self.request, 'Account created. Please wait for admin activation.')
-        return response
+        user = form.save()
+        login(self.request, user)
+        messages.success(self.request, 'Registration successful!')
+        return redirect('core:dashboard')
 
 
-class ActivationSentView(TemplateView):
-    template_name = 'accounts/activation_sent.html'
-
-
-class ProfileView(LoginRequiredMixin, UpdateView):
-    form_class = ProfileUpdateForm
-    template_name = 'accounts/profile.html'
-    success_url = reverse_lazy('accounts:profile')
-
-    def get_object(self, queryset=None):
-        return self.request.user
+class ParentRegisterView(FormView):
+    form_class = ParentRegistrationForm
+    template_name = 'accounts/register.html'
 
     def form_valid(self, form):
-        messages.success(self.request, 'Profile updated successfully.')
-        return super().form_valid(form)
-
-
-class HomeRedirectView(TemplateView):
-    template_name = 'accounts/home.html'
-
-    def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return redirect('accounts:dashboard')
-        return redirect('accounts:login')
+        user = form.save()
+        login(self.request, user)
+        messages.success(self.request, 'Registration successful!')
+        return redirect('core:dashboard')

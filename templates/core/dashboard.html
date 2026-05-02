@@ -1,0 +1,8 @@
+{% extends 'base.html' %}{% block content %}
+<h1 class='text-3xl font-bold mb-6'>{{ request.user.role|title }} Dashboard</h1>
+<div class='grid md:grid-cols-3 gap-4'>
+<div class='bg-white p-5 rounded-xl shadow'>Role-based quick links</div>
+<div class='bg-white p-5 rounded-xl shadow'>Pending approvals</div>
+<div class='bg-white p-5 rounded-xl shadow'>Upcoming lessons</div>
+</div>
+{% endblock %}
